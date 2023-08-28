@@ -1,0 +1,51 @@
+@use 'sass:color';
+@use '../../styles/variables' as v;
+
+.menu {
+  border-bottom: 1px solid v.$color-alt;
+  padding: v.$gutter v.$gutter calc(v.$gutter - 1px);
+  text-align: center;
+
+  &-nav {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-link,
+  &-btn {
+    cursor: pointer;
+    display: inline-block;
+    height: v.$gutter;
+    line-height: v.$gutter;
+  }
+
+  &-link {
+    color: v.$color-darkest;
+    cursor: pointer;
+    margin: 0 1rem;
+    text-decoration: none;
+
+    &--selected {
+      text-decoration: underline;
+    }
+
+    &:hover {
+      color: v.$color-primary;
+    }
+  }
+
+  &-btn {
+    background-color: v.$color-primary;
+    border: 0;
+    border-radius: 4px;
+    color: v.$color-lightest;
+    display: inline-block;
+    font-size: 0.8125rem;
+    margin: 0 1rem;
+    padding: 0 1rem;
+
+    &:hover {
+      background-color: color.scale(v.$color-primary, $lightness: -10%);
+    }
+  }
+}

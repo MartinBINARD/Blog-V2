@@ -1,0 +1,28 @@
+@use '../../styles/variables' as v;
+
+.posts {
+  margin: v.$gutter auto;
+  max-width: 800px;
+  transition: all 0.3s linear;
+
+  .app--zen & {
+    // .app--zen .posts
+    font-size: 1.5rem;
+  }
+
+  &-title {
+    color: v.$color-primary;
+    font-family: v.$font-title;
+    font-size: 2.125em;
+    font-weight: v.$font-title-weight;
+    line-height: v.$gutter * 3;
+    margin-bottom: v.$gutter;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,45 @@
+@use '../../styles/variables' as v;
+
+.post {
+  padding: v.$gutter;
+  transition: all 0.3s linear;
+  width: 100%;
+
+  @media (min-width: 600px) {
+    width: 50%;
+  }
+
+  .app--zen & {
+    // .app--zen .post
+    width: 100%;
+  }
+
+  &:hover {
+    background-color: v.$color-alt;
+  }
+
+  &-title {
+    color: v.$color-darkest;
+    font-family: v.$font-title;
+    font-size: 1.3125em;
+    font-weight: v.$font-title-weight;
+    margin-bottom: v.$gutter * 0.25;
+    text-transform: uppercase;
+  }
+
+  &-category {
+    background-color: v.$color-primary;
+    color: v.$color-lightest;
+    display: inline-block;
+    font-size: 0.8125em;
+    height: v.$gutter * 1.5;
+    line-height: v.$gutter * 1.5;
+    margin-bottom: v.$gutter * 0.25;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+  }
+
+  &-excerpt {
+    color: v.$color;
+  }
+}
