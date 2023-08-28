@@ -1,0 +1,15 @@
+@use '../../styles/variables' as v;
+
+.app {
+  background-color: v.$color-lightest;
+  display: flex;
+  flex-direction: column;
+  font-family: v.$font;
+  font-weight: v.$font-weight;
+  line-height: v.$gutter;
+  min-height: 100vh;
+
+  main {
+    flex-grow: 1;
+  }
+}

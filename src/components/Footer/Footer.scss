@@ -1,0 +1,8 @@
+@use '../../styles/variables' as v;
+
+.copyright {
+  background-color: v.$color-darkest;
+  color: v.$color-alt;
+  padding: v.$gutter * 2;
+  text-align: center;
+}
