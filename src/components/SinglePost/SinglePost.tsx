@@ -1,39 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import { createMarkup } from '../../utils';
+
+import { CategoriesContext } from '../../contexts/CategoriesContext';
 
 import { PostInterface } from '../../@types';
-import Spinner from '../Spinner/Spinner';
 
 import './SinglePost.scss';
+import Spinner from '../Spinner/Spinner';
 
-interface SinglePostProps {
-  postsList: PostInterface[];
-}
+/*
+  Objectif :
+  récupérer le nom de la catégorie de l'article depuis le contexte
 
-function SinglePost({ postsList }: SinglePostProps) {
+  1. on récupérer les catégories depuis le contexte
+  2. on trouve la bonne catégorie en fonction de son id → `Array.find()`
+  3. si on a une correspondance, j'ajoute la catégorie
+      (objet obtenu à l'étape 2) à mon retour API (`data`)
+*/
+
+function SinglePost() {
+  const categories = useContext(CategoriesContext);
+
   const { slug } = useParams();
 
-  // constante pour la redirection
-  // dans React, il existe des règles pour les Hooks
-  // l'une d'entre elles est qu'on ne peut utiliser un hook
-  // uniquement au premier niveau du composant
-  // ça veut dire :
-  //   - pas dans une boucle
-  //   - pas dans une condition
-  //   - pas dans une fonction imbriquée
-  //
-  // > https://react.dev/warnings/invalid-hook-call-warning#breaking-rules-of-hooks
-  //
-  // Pour utiliser les hooks dans un bloc profond,
-  // on passe par une variable intermédiaire
-
-  // je vais stocker le résultat de mon API
-  const [post, setPost] = useState<PostInterface | null>(null);
-
-  // constante pour la redirection
   const navigate = useNavigate();
+
+  const [post, setPost] = useState<PostInterface | null>(null);
 
   useEffect(() => {
     async function fetchPost() {
@@ -41,29 +34,34 @@ function SinglePost({ postsList }: SinglePostProps) {
         const { data } = await axios.get(
           `https://oblog-react.vercel.app/api/posts/${slug}`
         );
+        console.log(data);
+        const foundCategory = categories.find(
+          (category) => data.id === category.id
+        );
+        console.log('foundCategory', foundCategory);
 
-        setPost(data);
+        if (foundCategory) {
+          setTimeout(() => {
+            setPost(data);
+          }, 1000);
+        }
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // En cas d'erreur => redirection
         navigate('/404', { replace: true });
       }
     }
 
     fetchPost();
-  }, [slug, navigate]);
+  }, [navigate, slug, categories]);
 
-  // à l'initialisation (mon useEffect n'est pas encore appelé)
-  // post est null
   if (!post) {
     return <Spinner />;
   }
 
   return (
     <main className="single">
-      <h2 className="single-title">{post?.title}</h2>
-      <div className="single-category">{post?.categoryId}</div>
+      <h1 className="single-title">{post?.title}</h1>
+      <h2 className="single-category">{post?.categoryId}</h2>
+
       <p className="single-content">{post?.content}</p>
     </main>
   );
