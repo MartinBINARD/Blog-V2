@@ -4,6 +4,7 @@ import axios from 'axios';
 import { createMarkup } from '../../utils';
 
 import { PostInterface } from '../../@types';
+import Spinner from '../Spinner/Spinner';
 
 import './SinglePost.scss';
 
@@ -52,6 +53,12 @@ function SinglePost({ postsList }: SinglePostProps) {
 
     fetchPost();
   }, [slug, navigate]);
+
+  // à l'initialisation (mon useEffect n'est pas encore appelé)
+  // post est null
+  if (!post) {
+    return <Spinner />;
+  }
 
   return (
     <main className="single">
