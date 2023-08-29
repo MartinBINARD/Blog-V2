@@ -1,0 +1,35 @@
+@use '../../styles/variables' as v;
+
+.single {
+  margin: v.$gutter auto;
+  max-width: 800px;
+  transition: all 0.3s linear;
+
+  .app--zen & {
+    // & = .single → .app--zen .single
+    font-size: 1.5rem;
+  }
+
+  &-title {
+    color: v.$color-primary;
+    font-family: v.$font-title;
+    font-size: 2.125em;
+    font-weight: v.$font-title-weight;
+    line-height: v.$gutter * 3;
+    margin-bottom: v.$gutter;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &-category {
+    background-color: v.$color-darkest;
+    color: v.$color-lightest;
+    display: inline-block;
+    font-size: 0.8125em;
+    height: v.$gutter * 1.5;
+    line-height: v.$gutter * 1.5;
+    margin-bottom: v.$gutter * 0.25;
+    padding: 0 0.5rem;
+    text-transform: uppercase;
+  }
+}

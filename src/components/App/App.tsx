@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 import axios from 'axios';
 
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Posts from '../Posts/Posts';
 import Spinner from '../Spinner/Spinner';
+import SinglePost from '../SinglePost/SinglePost';
+import NotFound from '../NotFound/NotFound';
 
 import { CategoryInterface, PostInterface } from '../../@types';
 
@@ -104,7 +108,21 @@ function App() {
           />
 
           {/* {postsLoading ? <Spinner /> : <Posts list={posts} />} */}
-          <Posts list={posts} />
+          <Routes>
+            {/*
+              Router 3 : ajout des routes
+              si le `path` (chemin) de la route correspond à l'URL
+              alors on affiche `element`
+            */}
+            <Route path="/" element={<Posts list={posts} />} /> {/* accueil */}
+            {/* <Route path="/category/react" element={<h1>React</h1>} /> */}
+            {/* on utilise les routes paramétrées */}
+            <Route path="/category/:slug" element={<Posts list={posts} />} />
+            <Route path="/post/:slug" element={<SinglePost />} />
+            <Route path="/about" element={<h1>À propos</h1>} />
+            {/* Pour toutes les autres URL, on affiche la page d'erreur */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </>
       )}
       <Footer />
