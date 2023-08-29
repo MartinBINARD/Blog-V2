@@ -2,18 +2,16 @@ import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import { CategoriesContext } from '../../contexts/CategoriesContext';
+import { ZenModeContext } from '../../contexts/ZenModeContext';
 
 import './Header.scss';
 
-interface HeaderProps {
-  zenMode: boolean;
-  setZenMode: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Header({ zenMode, setZenMode }: HeaderProps) {
+function Header() {
   // Context : lecture
   // je vais récupérer les catégories depuis mon contexte
   const categories = useContext(CategoriesContext);
+  // je vais récupérer le mode zen depuis mon contexte
+  const { zenMode, setZenMode } = useContext(ZenModeContext);
 
   const allCategories = categories.map((category) => (
     <NavLink

@@ -13,7 +13,6 @@ import { CategoryInterface } from '../@types';
 */
 // création du contexte
 const CategoriesContext = createContext<CategoryInterface[]>([]);
-console.log(CategoriesContext);
 
 // création du Provider
 // c'est un « fournisseur de contexte »

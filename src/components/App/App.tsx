@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,12 +9,14 @@ import Spinner from '../Spinner/Spinner';
 import NotFound from '../NotFound/NotFound';
 import SinglePost from '../SinglePost/SinglePost';
 
+import { ZenModeContext } from '../../contexts/ZenModeContext';
+
 import { PostInterface } from '../../@types';
 
 import './App.scss';
 
 function App() {
-  const [zenMode, setZenMode] = useState(false);
+  const { zenMode } = useContext(ZenModeContext);
 
   // Appel API : articles
   const [posts, setPosts] = useState<PostInterface[]>([]);
@@ -47,7 +49,7 @@ function App() {
       ) : (
         <>
           {/* le Header sera présent sur TOUTES LES PAGES */}
-          <Header zenMode={zenMode} setZenMode={setZenMode} />
+          <Header />
 
           {/* <Posts list={posts} /> */}
           {/* ICI, c'est la partie qui va changer en fonction de l'URL */}

@@ -34,17 +34,19 @@ function SinglePost() {
         const { data } = await axios.get(
           `https://oblog-react.vercel.app/api/posts/${slug}`
         );
-        console.log(data);
-        const foundCategory = categories.find(
-          (category) => data.id === category.id
+        // 2. on trouve la bonne catégorie
+        const postCategory = categories.find(
+          (category) => category.id === data.categoryId
         );
-        console.log('foundCategory', foundCategory);
 
-        if (foundCategory) {
-          setTimeout(() => {
-            setPost(data);
-          }, 1000);
+        // 3. je l'ajoute à `data`
+        if (postCategory) {
+          data.category = postCategory;
         }
+
+        setTimeout(() => {
+          setPost(data);
+        }, 1000);
       } catch (error) {
         navigate('/404', { replace: true });
       }
@@ -60,7 +62,7 @@ function SinglePost() {
   return (
     <main className="single">
       <h1 className="single-title">{post?.title}</h1>
-      <h2 className="single-category">{post?.categoryId}</h2>
+      <h2 className="single-category">{post?.category?.name}</h2>
 
       <p className="single-content">{post?.content}</p>
     </main>

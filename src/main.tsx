@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './components/App/App';
 
 import { CategoriesProvider } from './contexts/CategoriesContext';
+import { ZenModeProvider } from './contexts/ZenModeContext';
 // On importe notre fichier de style global
 import './styles/index.scss';
 
@@ -16,8 +17,10 @@ const root = ReactDOM.createRoot(
 // On injecte notre application dans le DOM
 root.render(
   <CategoriesProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ZenModeProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ZenModeProvider>
   </CategoriesProvider>
 );
