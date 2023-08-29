@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { useContext, useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import axios from 'axios';
@@ -14,6 +15,8 @@ import { ZenModeContext } from '../../contexts/ZenModeContext';
 import { PostInterface } from '../../@types';
 
 import './App.scss';
+import { DarkContext, DarkProvider } from '../../contexts/DarkContext';
+import DarkModeComponent from './DarkModeComponent';
 
 function App() {
   const { zenMode } = useContext(ZenModeContext);
@@ -71,6 +74,14 @@ function App() {
         </>
       )}
       <Footer />
+
+      {/*
+        Ici en utilisant `DarkContext.Provider`,
+        je fournis une nouvelle valeur aux propriétés de mon contexte
+      */}
+      <DarkProvider>
+        <DarkModeComponent />
+      </DarkProvider>
     </div>
   );
 }
