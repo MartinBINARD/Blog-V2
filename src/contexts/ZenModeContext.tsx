@@ -31,8 +31,24 @@ function ZenModeProvider({ children }: { children: ReactElement }) {
   //   grâce à `value` et à `useContext()`
   const [zen, setZen] = useState(false);
 
+  /*
+    Problème :
+
+    à chaque fois que le contexte est appelé (App, Header)
+    l'objet passé à `value` est re-créé
+    donc ce composant et tous ses enfants sont re-rendus
+    → attention aux performances !
+
+    Solution :
+
+    useMemo met en cache une valeur → c'est la *mémoïsation*
+    (cette valeur est le retour du callback)
+
+    > https://react.dev/reference/react/useMemo
+    > https://fr.wiktionary.org/wiki/m%C3%A9mo%C3%AFsation
+  */
   const contextValue = useMemo(
-    // callback qui retourn la valeur à mettre en cache
+    // callback qui retourne la valeur à mettre en cache
     () => ({
       zenMode: zen,
       setZenMode: setZen,
@@ -42,12 +58,7 @@ function ZenModeProvider({ children }: { children: ReactElement }) {
   );
 
   return (
-    <ZenModeContext.Provider
-      value={{
-        zenMode: zen,
-        setZenMode: setZen,
-      }}
-    >
+    <ZenModeContext.Provider value={contextValue}>
       {children}
     </ZenModeContext.Provider>
   );
