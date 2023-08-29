@@ -1,18 +1,21 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { CategoryInterface } from '../../@types';
+import { CategoriesContext } from '../../contexts/CategoriesContext';
+
 import './Header.scss';
 
 interface HeaderProps {
-  categories: CategoryInterface[];
   zenMode: boolean;
   setZenMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function Header({ categories, zenMode, setZenMode }: HeaderProps) {
+function Header({ zenMode, setZenMode }: HeaderProps) {
+  // Context : lecture
+  // je vais récupérer les catégories depuis mon contexte
+  const categories = useContext(CategoriesContext);
+
   const allCategories = categories.map((category) => (
-    // Router 2 : ajout des liens
-    // → <Link to=""> >>> génère des `<a href="">`
     <NavLink
       key={category.id}
       className={({ isActive }) =>

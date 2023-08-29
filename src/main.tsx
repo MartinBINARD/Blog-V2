@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 // On importe notre composant principal
 import App from './components/App/App';
+
+import { CategoriesProvider } from './contexts/CategoriesContext';
 // On importe notre fichier de style global
 import './styles/index.scss';
 
@@ -13,7 +15,9 @@ const root = ReactDOM.createRoot(
 
 // On injecte notre application dans le DOM
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <CategoriesProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </CategoriesProvider>
 );
